@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCalendar">
         <activity
-            android:name=".MainActivity"
+            android:name=".ViewSmartEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewCalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
