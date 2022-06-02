@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Smart Calendar</string>
+    <string name="addSmartEventButton">Add Smart Event</string>
+    <string name="settingsButton">Settings</string>
+    <string name="viewSmartEventsButton">View Smart Evetns</string>
+    <string name="monthButton">M</string>
+    <string name="weekButton">W</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="returnFromSettingsButton">Save and Return to Calendar</string>
+    <string name="logInButton">Log In...</string>
+    <string name="notificationSwitch">Notifications</string>
+    <string name="alert1Switch">Alert 1</string>
+    <string name="alert2Switch">Alert 2</string>
+    <string name="saveEventButton">Save Event</string>
+    <string name="smartEventSwitch">Smart Event</string>
+    <string name="addexistingcalendar">Add Existing Calendar</string>
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
+    <string name="outlook">Outlook</string>
+    <string name="viewEvents">View Events</string>
+    <string name="calendar">Calendar</string>
 </resources>

@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/activity_add_event.xml" value="0.30052083333333335" />
         <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/activity_main.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/activity_settings.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/activity_view_events.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/activity_view_smart_events.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/fragment_add_calendar.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/fragment_log_in.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/fragment_view_calendar_day.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/fragment_view_calendar_month.xml" value="0.30052083333333335" />
+        <entry key="..\:/Users/david/Documents/CS4530 Mobile App Development/SmartCalendar/app/src/main/res/layout/fragment_view_calendar_week.xml" value="0.30052083333333335" />
       </map>
     </option>
   </component>
