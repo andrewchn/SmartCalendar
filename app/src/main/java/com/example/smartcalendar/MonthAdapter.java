@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.YearMonth;
+import java.util.Calendar;
 
 public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> implements DayAdapter.ISelectedDay {
     private Year year;
@@ -78,10 +79,12 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
 
     @Override
     public void selectedDay(int day, YearMonth month) {
-        sendData.selectedDay(month.atDay(day));
+        Calendar calendarDay = Calendar.getInstance();
+        calendarDay.set(year.getValue(), month.getMonthValue(), day);
+        sendData.selectedDay(calendarDay);
     }
 
     public interface ISelectedDayInMonth {
-        void selectedDay(LocalDate date);
+        void selectedDay(Calendar date);
     }
 }

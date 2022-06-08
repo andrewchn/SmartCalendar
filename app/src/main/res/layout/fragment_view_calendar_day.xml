@@ -12,9 +12,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutWeek1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewDay">
@@ -32,7 +34,7 @@
                 android:id="@+id/textViewDayDay3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="3"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay2"
@@ -42,7 +44,7 @@
                 android:id="@+id/textViewDayDay4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="4"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay3"
@@ -52,7 +54,7 @@
                 android:id="@+id/textViewDayDay7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="7"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay6"
@@ -62,7 +64,7 @@
                 android:id="@+id/textViewDayDay2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="2"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay1"
@@ -72,7 +74,7 @@
                 android:id="@+id/textViewDayDay5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="5"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay4"
@@ -82,7 +84,7 @@
                 android:id="@+id/textViewDayDay6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="24dp"
                 android:text="6"
                 android:textSize="34sp"
                 app:layout_constraintStart_toEndOf="@+id/textViewDayDay5"
@@ -95,7 +97,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Sun"
                 app:layout_constraintEnd_toEndOf="@+id/textViewDayDay1"
-                app:layout_constraintStart_toStartOf="@+id/textViewDayDay1"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDayDay1" />
 
             <TextView
@@ -159,20 +161,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewDayDay7" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ListView
-            android:id="@+id/listViewEventsDay"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutWeek1"></ListView>
-
         <TextView
             android:id="@+id/textViewDay"
             android:layout_width="wrap_content"
@@ -183,5 +171,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEvents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddEvent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutWeek1" />
+
+        <Button
+            android:id="@+id/buttonAddEvent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/addEventButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

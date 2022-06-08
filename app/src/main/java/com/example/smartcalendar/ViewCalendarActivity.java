@@ -1,27 +1,24 @@
 package com.example.smartcalendar;
 
-import androidx.annotation.LongDef;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-
 import java.time.LocalDate;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class ViewCalendarActivity extends AppCompatActivity implements ViewCalendarMonthFragment.IFromViewCalendarMonth {
+public class ViewCalendarActivity extends AppCompatActivity implements ViewCalendarMonthFragment.IFromViewCalendarMonth, ViewCalendarDayFragment.IFromViewCalendarDay {
 
     ViewCalendarMonthFragment viewMonths;
     ViewCalendarDayFragment viewDays;
-    ArrayList<Day> daysWithEvents;
+    EventList allEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewMonths = new ViewCalendarMonthFragment(Year.now());
-        daysWithEvents = new ArrayList<>();
-
+        allEvents = new EventList();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragmentContainerCalendar, viewMonths)
                 .addToBackStack("months")
@@ -29,25 +26,22 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
     }
 
     @Override
-    public void selectedDay(LocalDate date) {
-        boolean dayExists = false;
-        Day currentDay;
-        for (int i = 0; i < daysWithEvents.size(); i ++) {
-            currentDay = daysWithEvents.get(i);
-            if (currentDay.getDate().equals(date)) {
-                dayExists = true;
-                break;
-            }
-        }
+    public void selectedDay(Calendar date) {
         getSupportFragmentManager().popBackStackImmediate();
-        if (!dayExists) {
-            currentDay = new Day(date);
-            daysWithEvents.add(currentDay);
-        }
-        viewDays = new ViewCalendarDayFragment(); /// NEED TO ADD currentDay to constructor
+        viewDays = new ViewCalendarDayFragment(allEvents, date);
         getSupportFragmentManager().beginTransaction()
-                .add(viewDays, "day")
+                .add(R.id.fragmentContainerCalendar, viewDays)
                 .addToBackStack("day")
                 .commit();
+    }
+
+    @Override
+    public void selectedEvent(Event event) {
+
+    }
+
+    @Override
+    public void selectedAddEvent(Calendar day) {
+
     }
 }

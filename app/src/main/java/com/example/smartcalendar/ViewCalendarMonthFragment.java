@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import java.time.LocalDate;
 import java.time.Year;
+import java.util.Calendar;
 
 public class ViewCalendarMonthFragment extends Fragment implements MonthAdapter.ISelectedDayInMonth {
 
@@ -72,7 +73,7 @@ public class ViewCalendarMonthFragment extends Fragment implements MonthAdapter.
     }
 
     @Override
-    public void selectedDay(LocalDate date) {
+    public void selectedDay(Calendar date) {
         sendData.selectedDay(date);
     }
 
@@ -81,6 +82,6 @@ public class ViewCalendarMonthFragment extends Fragment implements MonthAdapter.
     }
 
     public interface IFromViewCalendarMonth {
-        void selectedDay(LocalDate date);
+        void selectedDay(Calendar date);
     }
 }
