@@ -1,20 +1,26 @@
-package com.example.smartcalendar;
+package com.example.smartcalendar.ViewCalendar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.smartcalendar.R;
+
 import java.time.YearMonth;
 
 public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     private YearMonth month;
     private ISelectedDay sendData;
+    private int dayOffset;
 
     public DayAdapter(YearMonth month, MonthAdapter monthAdapter) {
         this.month = month;
+        this.dayOffset = month.atDay(1).getDayOfWeek().getValue() % 7;
         if (monthAdapter instanceof ISelectedDay) {
             sendData = (ISelectedDay) monthAdapter;
         } else {
@@ -44,19 +50,25 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String dayNumberText = "" + (position + 1);
-        holder.getTextViewDayNumber().setText(dayNumberText);
-        holder.getTextViewDayNumber().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendData.selectedDay(holder.getAdapterPosition() + 1, month);
-            }
-        });
+        if (position < dayOffset) {
+            holder.getTextViewDayNumber().setText("");
+        } else {
+            int dayNumber = position - dayOffset + 1;
+            String dayNumberText = "" + (dayNumber);
+            holder.getTextViewDayNumber().setText(dayNumberText);
+            holder.getTextViewDayNumber().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendData.selectedDay(dayNumber, month);
+                    Log.d("debug", "onClick: day: " + dayNumber);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return month.lengthOfMonth();
+        return month.lengthOfMonth() + dayOffset;
     }
 
     public interface ISelectedDay {

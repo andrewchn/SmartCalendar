@@ -1,7 +1,7 @@
 package com.example.smartcalendar;
 
-import java.time.LocalDate;
-import java.time.MonthDay;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -16,6 +16,7 @@ public class EventList {
     }
 
     public ArrayList<Event> getAllEventsAtDay(Calendar day) {
+        Log.d("debug", "getAllEventsAtDay: day: " + day.get(Calendar.DAY_OF_MONTH));
         ArrayList<Event> eventsOnDay = new ArrayList<>();
         for (int i = 0; i < eventList.size(); i ++) {
             Event currentEvent = eventList.get(i);
@@ -28,8 +29,17 @@ public class EventList {
                     || (eventEndMillis > dayEndMillis && eventStartMillis < dayStartMillis)) {
                 // add sorting later
                 eventsOnDay.add(currentEvent);
+                Log.d("debug", "getAllEventsAtDay: event day: " + currentEvent.getStartDate().get(Calendar.DAY_OF_MONTH) + " " + currentEvent.getEndDate().get(Calendar.DAY_OF_MONTH));
             }
         }
         return eventsOnDay;
+    }
+
+    public ArrayList<Event> getEventList() {
+        return eventList;
+    }
+
+    public int size() {
+        return eventList.size();
     }
 }

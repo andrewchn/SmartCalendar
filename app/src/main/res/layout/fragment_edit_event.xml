@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".EditEventActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSaveEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="622dp">
+
+                <EditText
+                    android:id="@+id/editTextEventTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Title"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textVieweEventSettings" />
+
+                <TextView
+                    android:id="@+id/textVieweEventSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Event Settings"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/editTextEventLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Location"
+                    android:inputType="textPersonName"
+                    android:minHeight="48dp"
+                    app:layout_constraintStart_toStartOf="@+id/editTextEventTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextEventTitle" />
+
+                <TextView
+                    android:id="@+id/textViewAlertSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Alert Settings"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewEndDateText" />
+
+                <Switch
+                    android:id="@+id/switchSmartEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:minHeight="48dp"
+                    android:text="@string/smartEventSwitch"
+                    app:layout_constraintStart_toStartOf="@+id/textViewAlert2"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerAlert2" />
+
+                <Spinner
+                    android:id="@+id/spinnerStartYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewStartDateText"
+                    app:layout_constraintStart_toEndOf="@+id/textViewStartDateText"
+                    app:layout_constraintTop_toTopOf="@+id/textViewStartDateText"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerStartMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartYear"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerStartYear"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartYear"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerStartDay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartMonth"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerStartMonth"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartMonth"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartDay"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerStartDay"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartDay"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Year"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartYear"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartYear"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartYear" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Month"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartMonth"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartMonth"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartMonth" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Day"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartDay"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartDay"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartDay" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Time"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartTime"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartTime"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartTime" />
+
+                <Spinner
+                    android:id="@+id/spinnerEndYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewEndDateText"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartYear"
+                    app:layout_constraintTop_toTopOf="@+id/textViewEndDateText"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewStartDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Start"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextEventLocation" />
+
+                <TextView
+                    android:id="@+id/textViewEndDateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="End"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewStartDateText"
+                    app:layout_constraintStart_toStartOf="@+id/textViewStartDateText"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartDateText" />
+
+                <Spinner
+                    android:id="@+id/spinnerEndMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndYear"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartMonth"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerEndYear"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerEndDay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndMonth"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartDay"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerEndMonth"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndDay"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartTime"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerEndDay"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewFrquency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Frequency"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/switchSmartEvent" />
+
+                <Spinner
+                    android:id="@+id/spinnerFrequencyScale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    app:layout_constraintStart_toStartOf="@+id/textViewFrquency"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFrquency"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerFrequency"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerFrequencyScale"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerFrequencyScale"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerFrequencyScale"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewFrequencyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Days a week"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerFrequency"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerFrequency"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerFrequency" />
+
+                <Spinner
+                    android:id="@+id/spinnerAlert1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewAlert1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewAlert1"
+                    app:layout_constraintTop_toTopOf="@+id/textViewAlert1"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Spinner
+                    android:id="@+id/spinnerAlert2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:minHeight="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewAlert2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewAlert2"
+                    app:layout_constraintTop_toTopOf="@+id/textViewAlert2"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewAlert1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="Alert 1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewAlertSettings" />
+
+                <TextView
+                    android:id="@+id/textViewAlert2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="Alert 2"
+                    app:layout_constraintStart_toStartOf="@+id/textViewAlert1"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewAlert1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonSaveEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/saveEventButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

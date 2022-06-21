@@ -16,10 +16,7 @@
             android:name=".ViewSmartEventsActivity"
             android:exported="false" />
         <activity
-            android:name=".EditEventActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ViewCalendarActivity"
+            android:name=".ViewCalendar.ViewCalendarActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

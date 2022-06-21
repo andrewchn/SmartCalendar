@@ -1,4 +1,4 @@
-package com.example.smartcalendar;
+package com.example.smartcalendar.ViewCalendar;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 
-import java.time.LocalDate;
+import com.example.smartcalendar.R;
+
 import java.time.Year;
 import java.util.Calendar;
 

@@ -1,4 +1,4 @@
-package com.example.smartcalendar;
+package com.example.smartcalendar.ViewCalendar;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,9 +8,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import java.time.LocalDate;
+
+import com.example.smartcalendar.R;
+
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.Calendar;
@@ -66,21 +67,22 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MonthAdapter.ViewHolder holder, int position) {
-        holder.getMonthText().setText(monthStrings[position]);
+        String monthText = monthStrings[position] + " " + year.toString();
+        holder.getMonthText().setText(monthText);
         DayAdapter dayAdapter = new DayAdapter(year.atMonth(position + 1), this);
         holder.getRecyclerViewDays().setAdapter(dayAdapter);
     }
 
     @Override
     public int getItemCount() {
-        Log.d("debug", "getItemCount: called");
         return 12;
     }
 
     @Override
     public void selectedDay(int day, YearMonth month) {
         Calendar calendarDay = Calendar.getInstance();
-        calendarDay.set(year.getValue(), month.getMonthValue(), day);
+        Log.d("debug", "calendar conversion, year: " + year.getValue() + " month: " + month.getMonthValue());
+        calendarDay.set(year.getValue(), month.getMonthValue() - 1, day);
         sendData.selectedDay(calendarDay);
     }
 

@@ -1,23 +1,39 @@
 package com.example.smartcalendar;
 
-import android.location.Location;
-
-import java.time.DayOfWeek;
-import java.time.YearMonth;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
-public abstract class Event {
+public class Event {
     private String title;
-    private ArrayList<Integer> alerts;
-    private Location location;
+    private String location;
     private Calendar startDate;
     private Calendar endDate;
+    private Calendar alert1;
+    private Calendar alert2;
+
+    public long getCreationMillis() {
+        return creationMillis;
+    }
+
+    private final long creationMillis;
 
     // base constructor
     public Event(String title, Calendar startDate, Calendar endDate) {
+        this.creationMillis = System.currentTimeMillis();
         this.title = title;
+        if (startDate.after(endDate)) {
+            this.startDate = endDate;
+            this.endDate = startDate;
+        } else {
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+    }
+
+    public Event(String title, String location, Calendar startDate, Calendar endDate) {
+        this.title = title;
+        this.creationMillis = System.currentTimeMillis();
+        this.location = location;
         if (startDate.after(endDate)) {
             this.startDate = endDate;
             this.endDate = startDate;
@@ -31,13 +47,7 @@ public abstract class Event {
         return title;
     }
 
-    public ArrayList<Integer> getAlerts() {
-        if (alerts == null || alerts.isEmpty())
-            throw new IllegalStateException("no alerts exist");
-        return alerts;
-    }
-
-    public Location getLocation() {
+    public String getLocation() {
         if (location == null)
             throw new IllegalStateException("no location exists");
         return location;
@@ -49,22 +59,11 @@ public abstract class Event {
         this.title = title;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(String location) {
         if (location == null) {
             throw new IllegalArgumentException("location cannot be null");
         }
         this.location = location;
-    }
-
-    public void addAlert(int newAlert) {
-        this.alerts.add(newAlert);
-    }
-
-    public void removeAlert(int index) {
-        if (index < 0 || index > alerts.size() - 1) {
-            throw new IllegalArgumentException("invalid alerts index");
-        }
-        this.alerts.remove(index);
     }
 
     public Calendar getStartDate() {
@@ -87,11 +86,33 @@ public abstract class Event {
         return location != null;
     }
 
-    public boolean hasAlerts() {
-        return !alerts.isEmpty();
+    public String getStringDuration() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm");
+        return sdf.format(startDate.getTime()) + " to " + sdf.format(endDate.getTime());
     }
 
-    public String getStringDuration() {
-        return startDate.toString().substring(0, 16) + " to " + startDate.toString().substring(0, 16);
+    public Calendar getAlert1() {
+        return alert1;
+    }
+
+    public void setAlert1(Calendar alert1) {
+        this.alert1 = alert1;
+    }
+
+    public Calendar getAlert2() {
+        return alert2;
+    }
+
+    public void setAlert2(Calendar alert2) {
+        this.alert2 = alert2;
+    }
+
+    public int getNumAlerts() {
+        int numAlerts = 0;
+        if (alert1 != null)
+            numAlerts ++;
+        if (alert2 != null)
+            numAlerts ++;
+        return numAlerts;
     }
 }
