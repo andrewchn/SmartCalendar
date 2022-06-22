@@ -121,7 +121,7 @@ public class Event {
         Map<String, Object> data = new HashMap<>();
         data.put("title", title);
         data.put("startTime", startDate.getTimeInMillis());
-        data.put("endTime", startDate.getTimeInMillis());
+        data.put("endTime", endDate.getTimeInMillis());
         if (hasLocation())
             data.put("location", location);
         if (alert1 != null)

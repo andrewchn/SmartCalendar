@@ -43,7 +43,7 @@ public class CloudGetter {
                         long dayEndMillis = dayStartMillis + 24 * 60 * 60 * 1000;
                         if ((startMillis > dayStartMillis && startMillis < dayEndMillis)
                                 || (endMillis > dayStartMillis && endMillis < dayEndMillis)
-                                || (endMillis > dayEndMillis && endMillis < dayStartMillis)) {
+                                || (endMillis > dayEndMillis && startMillis < dayStartMillis)) {
                             Calendar startTime = Calendar.getInstance();
                             Calendar endTime = Calendar.getInstance();
                             startTime.setTimeInMillis(startMillis);

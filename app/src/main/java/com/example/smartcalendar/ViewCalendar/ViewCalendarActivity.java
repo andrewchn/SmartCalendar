@@ -1,19 +1,13 @@
 package com.example.smartcalendar.ViewCalendar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainer;
 import androidx.fragment.app.FragmentContainerView;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
-import com.example.smartcalendar.CloudGetter;
 import com.example.smartcalendar.EditEventFragment;
 import com.example.smartcalendar.Event;
-import com.example.smartcalendar.EventList;
 import com.example.smartcalendar.R;
 import com.google.firebase.FirebaseApp;
 
@@ -29,7 +23,6 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
     private Button buttonSettings;
     private Button buttonViewSmartEvents;
     private FragmentContainerView calendarFragmentContainer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
