@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.smartcalendar.CloudGetter;
 import com.example.smartcalendar.EditEventFragment;
 import com.example.smartcalendar.Event;
 import com.example.smartcalendar.EventList;
 import com.example.smartcalendar.R;
+import com.google.firebase.FirebaseApp;
+
 import java.time.Year;
 import java.util.Calendar;
 
@@ -23,7 +26,6 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
     private ViewCalendarMonthFragment viewMonths;
     private ViewCalendarDayFragment viewDays;
     private EditEventFragment editEvent;
-    private EventList allEvents;
     private Button buttonSettings;
     private Button buttonViewSmartEvents;
     private FragmentContainerView calendarFragmentContainer;
@@ -33,12 +35,12 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        FirebaseApp.initializeApp(this);
         buttonSettings = findViewById(R.id.buttonSettings);
         buttonViewSmartEvents = findViewById(R.id.buttonViewSmartEvents);
         calendarFragmentContainer = findViewById(R.id.fragmentContainerCalendar);
 
         viewMonths = new ViewCalendarMonthFragment(Year.now());
-        allEvents = new EventList();
         editEvent = new EditEventFragment();
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragmentContainerCalendar, viewMonths)
@@ -48,7 +50,7 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
 
     @Override
     public void selectedDay(Calendar date) {
-        viewDays = new ViewCalendarDayFragment(allEvents, date);
+        viewDays = new ViewCalendarDayFragment(date);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragmentContainerCalendar, viewDays)
                 .addToBackStack("day")
@@ -74,14 +76,8 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
     }
 
     @Override
-    public void saveEvent(Event event) {
+    public void saveEvent() {
         getSupportFragmentManager().popBackStackImmediate();
-        for (int i = 0; i < allEvents.size(); i ++) {
-            if (allEvents.getEventList().get(i).getCreationMillis() == event.getCreationMillis()) {
-                allEvents.getEventList().remove(i);
-                break;
-            }
-        }
-        allEvents.add(event);
+
     }
 }

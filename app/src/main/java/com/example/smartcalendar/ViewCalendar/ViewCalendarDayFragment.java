@@ -13,12 +13,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.smartcalendar.CloudGetter;
 import com.example.smartcalendar.Event;
 import com.example.smartcalendar.EventList;
 import com.example.smartcalendar.R;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IEventSelected {
+public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IEventSelected, CloudGetter.IFromCloudGetter {
 
     private TextView textViewHeader;
     private TextView textViewDay1;
@@ -33,19 +37,19 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
     private Button buttonAddEvent;
     private EventAdapter eventAdapter;
     private IFromViewCalendarDay sendData;
-    private EventList allEvents;
     private Calendar currentDay;
     private TextView[] textViewDays;
     private static final String[] monthStrings = {"January", "February", "March", "April", "May",
             "June", "July", "August", "September", "October", "November", "December"};
+    private CloudGetter cloudGetter;
 
     public ViewCalendarDayFragment() {
         // Required empty public constructor
     }
 
-    public ViewCalendarDayFragment(EventList allEvents, Calendar startDay) {
-        this.allEvents = allEvents;
+    public ViewCalendarDayFragment(Calendar startDay) {
         this.currentDay = startDay;
+        this.cloudGetter = new CloudGetter(this);
         currentDay.set(currentDay.get(Calendar.YEAR), currentDay.get(Calendar.MONTH), currentDay.get(Calendar.DAY_OF_MONTH), 0, 0);
     }
 
@@ -85,8 +89,6 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
         recyclerViewEvents = rootView.findViewById(R.id.recyclerViewEvents);
         recyclerViewLayoutManager = new LinearLayoutManager(getContext());
         recyclerViewEvents.setLayoutManager(recyclerViewLayoutManager);
-        eventAdapter = new EventAdapter(allEvents.getAllEventsAtDay(currentDay),this);
-        recyclerViewEvents.setAdapter(eventAdapter);
         return rootView;
     }
 
@@ -96,6 +98,7 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
         updateHeader();
         int dayNumber = currentDay.get(Calendar.DAY_OF_MONTH);
         int dayOfWeek = currentDay.get(Calendar.DAY_OF_WEEK);
+        cloudGetter.getAllEventsAtDay(currentDay);
 
         for (int i = 0; i < 7; i ++) {
             int tvNumber = i + 1 - dayOfWeek + dayNumber;
@@ -114,8 +117,7 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
                     textViewDays[currentDayOfWeek].setTypeface(null, Typeface.BOLD);
                     currentDay.setWeekDate(currentDay.getWeekYear(), currentDay.get(Calendar.WEEK_OF_YEAR), currentDayOfWeek + 1);
                     currentDay.set(currentDay.get(Calendar.YEAR), currentDay.get(Calendar.MONTH), currentDay.get(Calendar.DAY_OF_MONTH), 0, 0);
-                    eventAdapter = new EventAdapter(allEvents.getAllEventsAtDay(currentDay), parentFragment);
-                    recyclerViewEvents.setAdapter(eventAdapter);
+                    cloudGetter.getAllEventsAtDay(currentDay);
                 }
             });
         }
@@ -148,6 +150,13 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
                 + currentDay.get(Calendar.DAY_OF_MONTH) + " Events";
         textViewHeader.setText(headerText);
     }
+
+    @Override
+    public void finishedGetEventList(ArrayList<Event> eventList) {
+        eventAdapter = new EventAdapter(eventList, this);
+        recyclerViewEvents.setAdapter(eventAdapter);
+    }
+
     public interface IFromViewCalendarDay {
         void selectedEvent(Event event);
         void selectedAddEvent(Calendar day);

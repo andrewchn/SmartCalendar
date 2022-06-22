@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditEventFragment extends Fragment {
+public class EditEventFragment extends Fragment implements CloudSender.IFromCloudSender {
 
     private EditText editTextTitle;
     private EditText editTextLocation;
@@ -72,6 +72,8 @@ public class EditEventFragment extends Fragment {
     private ArrayAdapter<String> startTimeArrayAdapter;
     private ArrayAdapter<String> endTimeArrayAdapter;
 
+    private CloudSender cloudSender;
+
     public EditEventFragment() {
         yearArray = new ArrayList<>();
         int now = Year.now().getValue();
@@ -82,6 +84,7 @@ public class EditEventFragment extends Fragment {
         monthArray.add("February");
         monthArray.add("March");
         monthArray.add("April");
+        monthArray.add("May");
         monthArray.add("June");
         monthArray.add("July");
         monthArray.add("August");
@@ -97,6 +100,7 @@ public class EditEventFragment extends Fragment {
         }
         timeArray = new ArrayList<>();
         declareTimeArray();
+        cloudSender = new CloudSender(this);
     }
 
     @Override
@@ -290,20 +294,16 @@ public class EditEventFragment extends Fragment {
                     Event newEvent;
                     Map<String, Calendar> selections = getTimeSelections();
                     if (createNew) {
-                        Log.d("debug", "onClick: create new");
-                        if (location.isEmpty())
-                            newEvent = new Event(title, selections.get("start"), selections.get("end"));
-                        else
-                            newEvent = new Event(title, location, selections.get("start"), selections.get("end"));
-                        sendData.saveEvent(newEvent);
+                        newEvent = new Event(title, selections.get("start"), selections.get("end"));
+                        if (!location.isEmpty())
+                            newEvent.setLocation(location);
+                        cloudSender.write(newEvent);
                     } else {
-                        Log.d("debug", "onClick: save old");
                         if (!location.isEmpty())
                             event.setLocation(location);
                         event.setStartDate(selections.get("start"));
                         event.setEndDate(selections.get("end"));
-                        event.setTitle(title);
-                        sendData.saveEvent(event);
+                        cloudSender.write(event);
                     }
                 }
             }
@@ -380,7 +380,15 @@ public class EditEventFragment extends Fragment {
         return timeArray;
     }
 
+    @Override
+    public void finishedWrite(boolean successful) {
+        if (successful)
+            sendData.saveEvent();
+        else
+            Toast.makeText(getContext(), "Unable to save event", Toast.LENGTH_SHORT).show();
+    }
+
     public interface IFromEditEvent {
-        void saveEvent(Event event);
+        void saveEvent();
     }
 }

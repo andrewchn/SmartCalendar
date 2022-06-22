@@ -2,6 +2,8 @@ package com.example.smartcalendar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Event {
     private String title;
@@ -30,10 +32,9 @@ public class Event {
         }
     }
 
-    public Event(String title, String location, Calendar startDate, Calendar endDate) {
+    public Event(String title, Calendar startDate, Calendar endDate, long creationMillis) {
+        this.creationMillis = creationMillis;
         this.title = title;
-        this.creationMillis = System.currentTimeMillis();
-        this.location = location;
         if (startDate.after(endDate)) {
             this.startDate = endDate;
             this.endDate = startDate;
@@ -114,5 +115,19 @@ public class Event {
         if (alert2 != null)
             numAlerts ++;
         return numAlerts;
+    }
+
+    public Map<String, Object> getEventMap() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("title", title);
+        data.put("startTime", startDate.getTimeInMillis());
+        data.put("endTime", startDate.getTimeInMillis());
+        if (hasLocation())
+            data.put("location", location);
+        if (alert1 != null)
+            data.put("alert1", alert1.getTimeInMillis());
+        if (alert2 != null)
+            data.put("alert2", alert2.getTimeInMillis());
+        return data;
     }
 }
