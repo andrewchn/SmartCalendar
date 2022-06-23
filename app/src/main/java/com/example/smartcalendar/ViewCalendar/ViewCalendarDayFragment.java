@@ -7,17 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.smartcalendar.CloudGetter;
 import com.example.smartcalendar.Event;
 import com.example.smartcalendar.R;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -42,9 +39,6 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
             "June", "July", "August", "September", "October", "November", "December"};
     private CloudGetter cloudGetter;
 
-    public ViewCalendarDayFragment() {
-        // Required empty public constructor
-    }
 
     public ViewCalendarDayFragment(Calendar startDay) {
         this.currentDay = startDay;
@@ -60,10 +54,6 @@ public class ViewCalendarDayFragment extends Fragment implements EventAdapter.IE
             throw new RuntimeException(context + " must implement IFromViewCalendarDay");
         }
         super.onAttach(context);
-    }
-
-    public static ViewCalendarDayFragment newInstance(String param1, String param2) {
-        return new ViewCalendarDayFragment();
     }
 
     @Override

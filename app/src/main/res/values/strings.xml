@@ -2,7 +2,7 @@
     <string name="app_name">Smart Calendar</string>
     <string name="addEventButton">Add Event</string>
     <string name="settingsButton">Settings</string>
-    <string name="viewSmartEventsButton">View Smart Evetns</string>
+    <string name="viewSmartEventsButton">View Week Smart Events</string>
     <string name="monthButton">M</string>
     <string name="weekButton">W</string>
     <string name="returnFromSettingsButton">Save and Return to Calendar</string>

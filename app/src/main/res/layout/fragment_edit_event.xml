@@ -65,11 +65,11 @@
                     android:id="@+id/textViewAlertSettings"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:text="Alert Settings"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewEndDateText" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerEndTime" />
 
                 <Switch
                     android:id="@+id/switchSmartEvent"
@@ -83,146 +83,136 @@
 
                 <Spinner
                     android:id="@+id/spinnerStartYear"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewStartDateText"
-                    app:layout_constraintStart_toEndOf="@+id/textViewStartDateText"
-                    app:layout_constraintTop_toTopOf="@+id/textViewStartDateText"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartMonth"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartDateText"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerStartMonth"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartYear"
-                    app:layout_constraintStart_toEndOf="@+id/spinnerStartYear"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerStartYear"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerStartYear"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerStartDay"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartMonth"
-                    app:layout_constraintStart_toEndOf="@+id/spinnerStartMonth"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerStartMonth"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartMonth"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerStartMonth"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerStartTime"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartDay"
-                    app:layout_constraintStart_toEndOf="@+id/spinnerStartDay"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerStartDay"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartDay"
+                    app:layout_constraintTop_toBottomOf="@+id/spinnerStartDay"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="16dp"
                     android:text="Year"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartYear"
-                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartYear"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartYear" />
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartYear"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartYear" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="Month"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartMonth"
-                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartMonth"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartMonth" />
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartMonth"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartMonth" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="Day"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartDay"
-                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartDay"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartDay" />
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartDay"
+                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartDay" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
                     android:text="Time"
-                    app:layout_constraintBottom_toTopOf="@+id/spinnerStartTime"
-                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartTime"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartTime" />
+                    app:layout_constraintBottom_toBottomOf="@+id/spinnerStartTime"
+                    app:layout_constraintEnd_toEndOf="@+id/textView3"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartTime" />
 
                 <Spinner
                     android:id="@+id/spinnerEndYear"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewEndDateText"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartYear"
-                    app:layout_constraintTop_toTopOf="@+id/textViewEndDateText"
+                    app:layout_constraintStart_toEndOf="@+id/spinnerStartYear"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartYear"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/textViewStartDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="16dp"
                     android:text="Start"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerStartYear"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerStartYear"
                     app:layout_constraintTop_toBottomOf="@+id/editTextEventLocation" />
 
                 <TextView
                     android:id="@+id/textViewEndDateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
                     android:text="End"
-                    app:layout_constraintEnd_toEndOf="@+id/textViewStartDateText"
-                    app:layout_constraintStart_toStartOf="@+id/textViewStartDateText"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewStartDateText" />
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerEndYear"
+                    app:layout_constraintStart_toStartOf="@+id/spinnerEndYear"
+                    app:layout_constraintTop_toTopOf="@+id/textViewStartDateText" />
 
                 <Spinner
                     android:id="@+id/spinnerEndMonth"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndYear"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartMonth"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerEndYear"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerEndYear"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartMonth"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerEndDay"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndMonth"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartDay"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerEndMonth"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerEndMonth"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartDay"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerEndTime"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/spinnerEndDay"
-                    app:layout_constraintStart_toStartOf="@+id/spinnerStartTime"
-                    app:layout_constraintTop_toTopOf="@+id/spinnerEndDay"
+                    app:layout_constraintEnd_toEndOf="@+id/spinnerEndDay"
+                    app:layout_constraintTop_toTopOf="@+id/spinnerStartTime"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView

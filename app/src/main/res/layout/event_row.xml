@@ -56,9 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="Smart Event"
-                app:layout_constraintBottom_toBottomOf="@+id/textViewEventTime"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewEventLocation"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textViewEventTime" />
+                app:layout_constraintTop_toTopOf="@+id/textViewEventLocation" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

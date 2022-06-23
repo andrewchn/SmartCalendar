@@ -12,6 +12,7 @@ public class Event {
     private Calendar endDate;
     private Calendar alert1;
     private Calendar alert2;
+    private boolean smartEvent;
 
     public long getCreationMillis() {
         return creationMillis;
@@ -20,9 +21,10 @@ public class Event {
     private final long creationMillis;
 
     // base constructor
-    public Event(String title, Calendar startDate, Calendar endDate) {
+    public Event(String title, Calendar startDate, Calendar endDate, boolean smartEvent) {
         this.creationMillis = System.currentTimeMillis();
         this.title = title;
+        this.smartEvent = smartEvent;
         if (startDate.after(endDate)) {
             this.startDate = endDate;
             this.endDate = startDate;
@@ -32,9 +34,10 @@ public class Event {
         }
     }
 
-    public Event(String title, Calendar startDate, Calendar endDate, long creationMillis) {
+    public Event(String title, Calendar startDate, Calendar endDate, boolean smartEvent, long creationMillis) {
         this.creationMillis = creationMillis;
         this.title = title;
+        this.smartEvent = smartEvent;
         if (startDate.after(endDate)) {
             this.startDate = endDate;
             this.endDate = startDate;
@@ -122,6 +125,7 @@ public class Event {
         data.put("title", title);
         data.put("startTime", startDate.getTimeInMillis());
         data.put("endTime", endDate.getTimeInMillis());
+        data.put("smartEvent", smartEvent);
         if (hasLocation())
             data.put("location", location);
         if (alert1 != null)
@@ -129,5 +133,13 @@ public class Event {
         if (alert2 != null)
             data.put("alert2", alert2.getTimeInMillis());
         return data;
+    }
+
+    public boolean isSmartEvent() {
+        return smartEvent;
+    }
+
+    public void setSmartEvent(boolean smartEvent) {
+        this.smartEvent = smartEvent;
     }
 }

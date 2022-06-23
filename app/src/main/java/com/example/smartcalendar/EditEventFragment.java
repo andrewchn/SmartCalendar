@@ -2,12 +2,8 @@ package com.example.smartcalendar;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +16,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.smartcalendar.ViewCalendar.ViewCalendarDayFragment;
-
-import java.lang.reflect.Array;
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +27,7 @@ import java.util.Map;
 
 public class EditEventFragment extends Fragment implements CloudSender.IFromCloudSender {
 
+    // UI Elements
     private EditText editTextTitle;
     private EditText editTextLocation;
     private Spinner spinnerStartYear;
@@ -55,9 +49,7 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
     private TextView textViewFrequencyText;
     private Button buttonSaveEvent;
 
-    private Event event;
-    private IFromEditEvent sendData;
-    private boolean createNew = false;
+    // time arrays and adapters
     private List<String> yearArray;
     private ArrayAdapter<String> startYearArrayAdapter;
     private ArrayAdapter<String> endYearArrayAdapter;
@@ -72,35 +64,39 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
     private ArrayAdapter<String> startTimeArrayAdapter;
     private ArrayAdapter<String> endTimeArrayAdapter;
 
+    // alert arrays and adapters
+    private List<String> alertArray;
+    private ArrayAdapter<String> alert1Adapter;
+    private ArrayAdapter<String> alert2Adapter;
+
+    private static final String[] monthStrings = {"January", "February", "March", "April", "May",
+            "June", "July", "August", "September", "October", "November", "December"};
+    private static final String[] alerts = {"No alert", "At time of event", "15 minutes before",
+            "30 minutes before", "1 hour before", "2 hours before",
+            "1 day before", "2 days before", "1 week before"};
+    private Event event;
+    private IFromEditEvent sendData;
+    private boolean createNew = false;
     private CloudSender cloudSender;
+    private boolean smartEvent;
 
     public EditEventFragment() {
         yearArray = new ArrayList<>();
+        monthArray = new ArrayList<>(Arrays.asList(monthStrings));
+        startDayArray = new ArrayList<>();
+        endDayArray = new ArrayList<>();
+        timeArray = new ArrayList<>();
+        alertArray = new ArrayList<>(Arrays.asList(alerts));
+        declareTimeArray();
         int now = Year.now().getValue();
         for (int i = now; i <= now + 5; i ++)
             yearArray.add("" + i);
-        monthArray = new ArrayList<>();
-        monthArray.add("January");
-        monthArray.add("February");
-        monthArray.add("March");
-        monthArray.add("April");
-        monthArray.add("May");
-        monthArray.add("June");
-        monthArray.add("July");
-        monthArray.add("August");
-        monthArray.add("September");
-        monthArray.add("October");
-        monthArray.add("November");
-        monthArray.add("December");
-        startDayArray = new ArrayList<>();
-        endDayArray = new ArrayList<>();
         for (int i = 1; i <= 31; i ++) {
             startDayArray.add("" + i);
             endDayArray.add("" + i);
         }
-        timeArray = new ArrayList<>();
-        declareTimeArray();
         cloudSender = new CloudSender(this);
+        smartEvent = false;
     }
 
     @Override
@@ -111,10 +107,6 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         } else {
             throw new RuntimeException(context + " must implement IFromEditEvent");
         }
-    }
-
-    public static EditEventFragment newInstance(String param1, String param2) {
-        return new EditEventFragment();
     }
 
     @Override
@@ -166,6 +158,8 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         endDayArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.add_event_spinner_entry, endDayArray);
         startTimeArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.add_event_spinner_entry, timeArray);
         endTimeArrayAdapter = new ArrayAdapter<>(getContext(), R.layout.add_event_spinner_entry, timeArray);
+        alert1Adapter = new ArrayAdapter<>(getContext(), R.layout.add_event_spinner_entry, alertArray);
+        alert2Adapter = new ArrayAdapter<>(getContext(), R.layout.add_event_spinner_entry, alertArray);
 
         // set up spinners
         spinnerStartYear.setAdapter(startYearArrayAdapter);
@@ -176,6 +170,8 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         spinnerEndMonth.setAdapter(endMonthArrayAdapter);
         spinnerEndDay.setAdapter(endDayArrayAdapter);
         spinnerEndTime.setAdapter(endTimeArrayAdapter);
+        spinnerAlert1.setAdapter(alert1Adapter);
+        spinnerAlert2.setAdapter(alert2Adapter);
 
         return rootView;
     }
@@ -187,22 +183,7 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         switchSmartEvent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    spinnerFrequency.setVisibility(View.VISIBLE);
-                    spinnerFrequencyScale.setVisibility(View.VISIBLE);
-                    textViewFrequency.setVisibility(View.VISIBLE);
-                    textViewFrequencyText.setVisibility(View.VISIBLE);
-                    startTimeArrayAdapter.clear();
-                    endTimeArrayAdapter.clear();
-                } else {
-                    spinnerFrequency.setVisibility(View.GONE);
-                    spinnerFrequencyScale.setVisibility(View.GONE);
-                    textViewFrequency.setVisibility(View.GONE);
-                    textViewFrequencyText.setVisibility(View.GONE);
-                    declareTimeArray();
-                    startTimeArrayAdapter.addAll(timeArray);
-                    endTimeArrayAdapter.addAll(timeArray);
-                }
+                smartEvent = isChecked;
             }
         });
 
@@ -229,7 +210,6 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int year = Integer.parseInt(spinnerEndYear.getSelectedItem().toString());
                 YearMonth month = YearMonth.of(year, position + 1);
-                Log.d("debug", "onItemSelected: year: " + year);
                 endDayArray = getDayArray(month.lengthOfMonth());
                 endDayArrayAdapter.clear();
                 endDayArrayAdapter.addAll(endDayArray);
@@ -281,6 +261,22 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
             }
         });
 
+        spinnerAlert1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    textViewAlert2.setVisibility(View.VISIBLE);
+                    spinnerAlert2.setVisibility(View.VISIBLE);
+                } else {
+                    textViewAlert2.setVisibility(View.GONE);
+                    spinnerAlert2.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
         buttonSaveEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -293,17 +289,42 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
                     // get all time information
                     Event newEvent;
                     Map<String, Calendar> selections = getTimeSelections();
-                    if (createNew) {
-                        newEvent = new Event(title, selections.get("start"), selections.get("end"));
-                        if (!location.isEmpty())
-                            newEvent.setLocation(location);
-                        cloudSender.write(newEvent);
+                    // get alert informaion
+                    Calendar alert1 = null;
+                    Calendar alert2 = null;
+                    if (spinnerAlert1.getSelectedItemPosition() > 0) {
+                        alert1 = getAlertFromPos(spinnerAlert1.getSelectedItemPosition(),
+                                selections.get("start"));
+                        if (spinnerAlert2.getSelectedItemPosition() > 0) {
+                            alert2 = getAlertFromPos(spinnerAlert2.getSelectedItemPosition(),
+                                    selections.get("start"));
+                        }
+                    }
+                    if (smartEvent && selections.get("end").get(Calendar.DAY_OF_MONTH) != selections.get("start").get(Calendar.DAY_OF_MONTH)) {
+                        Toast.makeText(getContext(), "Smart Events can't span more than one day", Toast.LENGTH_SHORT).show();
                     } else {
-                        if (!location.isEmpty())
-                            event.setLocation(location);
-                        event.setStartDate(selections.get("start"));
-                        event.setEndDate(selections.get("end"));
-                        cloudSender.write(event);
+                        // write the event data
+                        if (createNew) {
+                            newEvent = new Event(title, selections.get("start"), selections.get("end"), smartEvent);
+                            if (!location.isEmpty())
+                                newEvent.setLocation(location);
+                            if (alert1 != null)
+                                newEvent.setAlert1(alert1);
+                            if (alert2 != null)
+                                newEvent.setAlert2(alert2);
+                            cloudSender.write(newEvent);
+                        } else {
+                            if (!location.isEmpty())
+                                event.setLocation(location);
+                            event.setStartDate(selections.get("start"));
+                            event.setEndDate(selections.get("end"));
+                            if (alert1 != null)
+                                event.setAlert1(alert1);
+                            if (alert2 != null)
+                                event.setAlert2(alert2);
+                            event.setSmartEvent(smartEvent);
+                            cloudSender.write(event);
+                        }
                     }
                 }
             }
@@ -315,7 +336,7 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         createNew = false;
     }
 
-    public void declareTimeArray() {
+    private void declareTimeArray() {
         for (int hour = 0; hour < 24; hour ++) {
             String hourString = "" + hour;
             boolean pm = false;
@@ -337,7 +358,35 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
         }
     }
 
-    public ArrayList<String> getDayArray(int numdays) {
+    private Calendar getAlertFromPos(int pos, Calendar start) {
+        Calendar alert = Calendar.getInstance();
+        final int MINUTE = 1000 * 60;
+        final int HOUR = MINUTE * 60;
+        final int DAY = HOUR * 24;
+        final int WEEK = DAY * 7;
+        long startMillis = start.getTimeInMillis();
+        long alertMillis = startMillis;
+        switch (pos) {
+            case 2: alertMillis = startMillis - 15 * MINUTE;
+                break;
+            case 3: alertMillis = startMillis - 30 * MINUTE;
+                break;
+            case 4: alertMillis = startMillis - HOUR;
+                break;
+            case 5: alertMillis = startMillis - 2 * HOUR;
+                break;
+            case 6: alertMillis = startMillis - DAY;
+                break;
+            case 7: alertMillis = startMillis - 2 * DAY;
+                break;
+            case 8: alertMillis = startMillis - WEEK;
+                break;
+        }
+        alert.setTimeInMillis(alertMillis);
+        return alert;
+    }
+
+    private ArrayList<String> getDayArray(int numdays) {
         ArrayList<String> daysArray = new ArrayList<>();
         for (int i = 1; i <= numdays; i ++) {
             daysArray.add("" + i);
@@ -381,11 +430,14 @@ public class EditEventFragment extends Fragment implements CloudSender.IFromClou
     }
 
     @Override
-    public void finishedWrite(boolean successful) {
-        if (successful)
+    public void finishedWrite(boolean successful, ArrayList<Event> eventsToMove, ArrayList<Event> allEvents) {
+        if (successful && eventsToMove.isEmpty()) {
             sendData.saveEvent();
-        else
+        } else if (!successful) {
             Toast.makeText(getContext(), "Unable to save event", Toast.LENGTH_SHORT).show();
+        } else {
+            cloudSender.shuffleSmartEvents(eventsToMove, allEvents);
+        }
     }
 
     public interface IFromEditEvent {

@@ -1,5 +1,6 @@
 package com.example.smartcalendar.ViewCalendar;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smartcalendar.Event;
 import com.example.smartcalendar.R;
-import com.example.smartcalendar.SmartEvent;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder>{
             holder.getLocation().setVisibility(View.VISIBLE);
             holder.getLocation().setText(event.getLocation());
         }
-        if (event instanceof SmartEvent) {
+        if (event.isSmartEvent()) {
             holder.getSmartEvent().setVisibility(View.VISIBLE);
         } else {
             holder.getSmartEvent().setVisibility(View.GONE);

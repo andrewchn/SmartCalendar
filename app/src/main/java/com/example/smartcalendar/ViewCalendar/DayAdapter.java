@@ -1,6 +1,5 @@
 package com.example.smartcalendar.ViewCalendar;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     sendData.selectedDay(dayNumber, month);
-                    Log.d("debug", "onClick: day: " + dayNumber);
                 }
             });
         }

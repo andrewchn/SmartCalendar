@@ -1,6 +1,5 @@
 package com.example.smartcalendar.ViewCalendar;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.smartcalendar.R;
-
 import java.time.Year;
 import java.time.YearMonth;
 import java.util.Calendar;
@@ -24,7 +21,6 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
             "June", "July", "August", "September", "October", "November", "December"};
 
     public MonthAdapter(Year year, Fragment parentFragment) {
-        Log.d("debug", "Month Adapter Created");
         this.year = year;
         if (parentFragment instanceof ISelectedDayInMonth) {
             sendData = (ISelectedDayInMonth) parentFragment;
@@ -40,7 +36,6 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            Log.d("debug", "ViewHolder: Creating Month Card");
             this.recyclerViewDays = itemView.findViewById(R.id.recyclerViewDays);
             this.monthText = itemView.findViewById(R.id.textViewMonth);
             this.recyclerViewLayoutManager = new GridLayoutManager(itemView.getContext(), 7);
@@ -59,7 +54,6 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     @NonNull
     @Override
     public MonthAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("debug", "Month onCreateViewHolder");
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.grid_calendar_month, parent, false);
         return new ViewHolder(view);
@@ -81,9 +75,13 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     @Override
     public void selectedDay(int day, YearMonth month) {
         Calendar calendarDay = Calendar.getInstance();
-        Log.d("debug", "calendar conversion, year: " + year.getValue() + " month: " + month.getMonthValue());
         calendarDay.set(year.getValue(), month.getMonthValue() - 1, day);
         sendData.selectedDay(calendarDay);
+    }
+
+    public void updateYear(Year year) {
+        this.year = year;
+        notifyDataSetChanged();
     }
 
     public interface ISelectedDayInMonth {

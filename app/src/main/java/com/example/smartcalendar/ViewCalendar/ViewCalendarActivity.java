@@ -2,15 +2,13 @@ package com.example.smartcalendar.ViewCalendar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentContainerView;
-
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-
 import com.example.smartcalendar.EditEventFragment;
 import com.example.smartcalendar.Event;
 import com.example.smartcalendar.R;
 import com.google.firebase.FirebaseApp;
-
 import java.time.Year;
 import java.util.Calendar;
 
@@ -31,6 +29,8 @@ public class ViewCalendarActivity extends AppCompatActivity implements ViewCalen
         FirebaseApp.initializeApp(this);
         buttonSettings = findViewById(R.id.buttonSettings);
         buttonViewSmartEvents = findViewById(R.id.buttonViewSmartEvents);
+        buttonSettings.setVisibility(View.GONE);
+        buttonViewSmartEvents.setVisibility(View.GONE);
         calendarFragmentContainer = findViewById(R.id.fragmentContainerCalendar);
 
         viewMonths = new ViewCalendarMonthFragment(Year.now());
